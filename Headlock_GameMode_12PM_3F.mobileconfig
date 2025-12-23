@@ -2,43 +2,44 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
   <key>PayloadContent</key>
   <array>
     <dict>
+      <key>PayloadType</key>
+      <string>com.apple.webClip.managed</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>PayloadIdentifier</key>
+      <string>com.headlock.trainer.webclip</string>
+      <key>PayloadUUID</key>
+      <string>HEADLOCK-12PM-3FINGER</string>
+      <key>PayloadDisplayName</key>
+      <string>Headlock Trainer</string>
+
+      <key>Label</key>
+      <string>Headlock Trainer</string>
+      <key>URL</key>
+      <string>https://phungduong768.github.io/headlock-gamemode/</string>
       <key>FullScreen</key>
       <true/>
       <key>IsRemovable</key>
       <true/>
-      <key>Label</key>
-      <string>Headlock Trainer</string>
-      <key>PayloadDescription</key>
-      <string>Web-app luyện kéo tâm + auto-calibrate (không can thiệp game/iOS)</string>
-      <key>PayloadDisplayName</key>
-      <string>Headlock Trainer</string>
-      <key>PayloadIdentifier</key>
-      <string>com.dg.headlock.trainer.webclip</string>
-      <key>PayloadType</key>
-      <string>com.apple.webClip.managed</string>
-      <key>PayloadUUID</key>
-      <string>DG-FF-12PM-3F-1B29352F</string>
-      <key>PayloadVersion</key>
-      <integer>1</integer>
       <key>Precomposed</key>
       <true/>
-      <key>URL</key>
-      <string>https://YOUR_GITHUB_USERNAME.github.io/headlock-gamemode/</string>
     </dict>
   </array>
 
-  <key>PayloadDisplayName</key>
-  <string>Headlock Trainer</string>
-  <key>PayloadIdentifier</key>
-  <string>com.dg.headlock.trainer.profile</string>
   <key>PayloadType</key>
   <string>Configuration</string>
-  <key>PayloadUUID</key>
-  <string>DG-FF-GLOBAL-C397292F</string>
   <key>PayloadVersion</key>
   <integer>1</integer>
+  <key>PayloadIdentifier</key>
+  <string>com.headlock.trainer.profile</string>
+  <key>PayloadUUID</key>
+  <string>HEADLOCK-GLOBAL-PROFILE</string>
+  <key>PayloadDisplayName</key>
+  <string>Headlock Trainer</string>
+
 </dict>
 </plist>
