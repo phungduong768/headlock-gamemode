@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="color-scheme" content="dark light">
+  <title>Headlock Trainer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <div class="dot"></div>
+      <div>
+        <div class="title">Headlock Trainer</div>
+        <div class="sub">iPhone 12 Pro Max • 3 ngón • hỗn hợp (luyện tay + auto-calibrate)</div>
+      </div>
+    </div>
+    <button id="btnFull" class="ghost" aria-label="Toàn màn hình">⛶</button>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2>1) Auto‑Calibrate (khuyến nghị setting FF)</h2>
+      <p class="muted">Bạn làm 3 bài test vuốt. App đo “độ nhanh + ổn định” và đưa ra bộ thông số gợi ý để bạn <b>nhập vào trong Free Fire</b>. Không can thiệp game.</p>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="cal">Auto‑Calibrate</button>
+        <button class="tab" data-tab="diag">Kéo chéo 15°</button>
+        <button class="tab" data-tab="track">Anti‑Shake</button>
+      </div>
+
+      <div id="panel-cal" class="panel">
+        <div class="grid2">
+          <div>
+            <div class="row">
+              <label class="lbl">Mục tiêu “biên độ vuốt”</label>
+              <select id="ampPreset">
+                <option value="short">Ngắn (1.0cm)</option>
+                <option value="mid" selected>Vừa (1.5cm)</option>
+                <option value="long">Dài (2.0cm)</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <label class="lbl">Độ rung tay (tự đánh giá)</label>
+              <select id="shakeSelf">
+                <option value="low">Ít rung</option>
+                <option value="mid" selected>Trung bình</option>
+                <option value="high">Rung nhiều</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <button id="btnStartCal" class="primary">Bắt đầu test</button>
+              <button id="btnResetCal" class="ghost">Reset</button>
+            </div>
+
+            <div class="muted small">
+              Mẹo: kéo theo <b>đường chéo nhẹ</b>, đừng giật; nhả đúng điểm. Làm 2 vòng rồi lấy vòng tốt hơn.
+            </div>
+          </div>
+
+          <div class="result">
+            <div class="h">Kết quả gợi ý</div>
+            <pre id="outSettings" class="mono">Chưa có dữ liệu. Nhấn “Bắt đầu test”.</pre>
+            <div class="small muted">Gợi ý này là “baseline” cho iPhone 12 Pro Max. Sau 3 trận, nếu rung/over‑kéo → giảm Red Dot 2–5. Nếu thiếu lực → tăng Tổng quát +2 và Red Dot +2.</div>
+          </div>
+        </div>
+
+        <div class="arenaWrap">
+          <div class="arenaTitle">
+            <span id="calStepLabel">Chưa bắt đầu</span>
+            <span class="chip" id="calHint">—</span>
+          </div>
+
+          <div id="arena" class="arena" role="application" aria-label="Khu test vuốt">
+            <div id="startPad" class="pad start" title="Chạm & giữ ở đây rồi vuốt theo hướng mũi tên"></div>
+            <div id="targetDot" class="dot target" aria-hidden="true"></div>
+            <div id="arrow" class="arrow" aria-hidden="true"></div>
+            <div id="ghostPath" class="path" aria-hidden="true"></div>
+          </div>
+
+          <div class="small muted">
+            Cách làm: <b>Chạm & giữ</b> ở ô Start → <b>kéo</b> theo mũi tên → <b>thả</b> gần chấm đỏ. App chấm điểm theo tốc độ và sai số.
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-diag" class="panel hidden">
+        <h3>Kéo chéo 15° (luyện lên đầu ổn hơn)</h3>
+        <p class="muted">Bài này tập “đường kéo” để giảm rung. Không cần chỉnh iPhone.</p>
+        <div class="arenaWrap">
+          <div class="arenaTitle">
+            <span>Chế độ luyện</span>
+            <span class="chip">15°</span>
+          </div>
+          <div id="diagArena" class="arena">
+            <div id="diagStart" class="pad start"></div>
+            <div id="diagTarget" class="dot target"></div>
+            <div id="diagPath" class="path"></div>
+          </div>
+          <div class="row">
+            <button id="btnDiagNew" class="primary">Mục tiêu mới</button>
+            <div class="muted small" id="diagScore">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="panel-track" class="panel hidden">
+        <h3>Anti‑Shake (giữ tâm trong vòng tròn)</h3>
+        <p class="muted">Tập “giữ tâm” 3–5 giây. Càng ít rung càng tốt.</p>
+        <div class="arenaWrap">
+          <div class="arenaTitle">
+            <span>Tracking</span>
+            <span class="chip" id="trackTimer">00:00</span>
+          </div>
+          <div id="trackArena" class="arena">
+            <div id="trackCircle" class="ring"></div>
+            <div id="trackCursor" class="cursor"></div>
+          </div>
+          <div class="row">
+            <button id="btnTrackStart" class="primary">Bắt đầu 5 giây</button>
+            <button id="btnTrackStop" class="ghost">Dừng</button>
+            <div class="muted small" id="trackScore">—</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2) “Chế độ chơi” (checklist nhanh)</h2>
+      <div class="checklist">
+        <label><input type="checkbox" /> Tắt Low Power Mode</label>
+        <label><input type="checkbox" /> Bật Không làm phiền (Focus)</label>
+        <label><input type="checkbox" /> Đóng app nền nặng (TikTok/FB/Chrome)</label>
+        <label><input type="checkbox" /> Máy mát (tháo ốp dày, không sạc khi chơi)</label>
+        <label><input type="checkbox" /> Mạng ổn định (ưu tiên Wi‑Fi nếu 4G lag)</label>
+      </div>
+      <div class="row">
+        <button id="btnOpenFF" class="primary">Mở Free Fire</button>
+        <span class="muted small">Nếu iOS không mở được, bạn tự mở FF từ màn hình chính.</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3) Gợi ý HUD 3 ngón (12 Pro Max)</h2>
+      <ul class="muted">
+        <li>Ngón trỏ trái: nút bắn đặt cao (gần nửa trên) để bắn không cấn.</li>
+        <li>Ngón cái phải: vùng kéo tâm trống, tránh icon chồng lên.</li>
+        <li>Nhảy + Ngồi gần ngón cái phải để kéo + nhảy khi hỗn hợp.</li>
+      </ul>
+    </section>
+
+    <footer class="foot muted small">
+      Headlock Trainer chỉ là công cụ luyện tay + gợi ý setting. Không can thiệp game, không thay đổi hệ thống iOS.
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
